@@ -9,6 +9,7 @@ import NotFound from "./NotFound";
 import LogoutComponent from "./auth/LogoutContainer";
 import ProfileContainer from "./main/profile/ProfileContainer";
 import ArticleCreateForm from "./main/articles/ArticleCreateForm";
+import Spinner from "./effects/Spinner";
 
 const Main = () => {
     return (
@@ -16,12 +17,13 @@ const Main = () => {
             <Switch>
                 <Route exact path={'/'} render={() => <HomeContainer/> } />
                 <Route exact path={'/articles/create'} render={() => <ArticleCreateForm/>} />
-                <Route exact path={"/articles/:id(\d+)"} render={() => <SingleArticleContainer/>} />
+                <Route exact path={"/articles/:id"} render={() => <SingleArticleContainer/>} />
                 <Route path={'/articles/(page)?/:pageNumber?'} render={() => <ArticlesListContainer/>} />
                 <Route path={'/login'} render={() => <LoginForm/>}/>
                 <Route path={'/register'} render={() => <RegisterForm/>}/>
                 <Route path={'/logout'} render={() => <LogoutComponent/>}/>
                 <Route exact path={'/profile/:username'} render={() => <ProfileContainer/>} />
+                <Route exact path={'/spinner'} render={() => <Spinner/>}/>
                 <Route path={'*'} render={() => <NotFound/>}/>
             </Switch>
         </>

@@ -11,6 +11,10 @@ import {
 import Spinner from "../../effects/Spinner";
 
 class ArticlesListContainer extends React.Component {
+    state = {
+        enablePagination: true
+    }
+
     componentDidMount() {
         console.log("ArticleListContainer")
         let pageNumber = this.props.match.params.pageNumber
@@ -20,9 +24,12 @@ class ArticlesListContainer extends React.Component {
         axios
             .get(`http://127.0.0.1:8000/api/articles/?page=${pageNumber}`)
             .then(response => {
-                console.log(response)
-                if(response.data.data.length === 0) this.props.setIsEmpty(true)
-                else this.props.setArticleListPagination(response.data.data, response.data.links, response.data.meta)
+                if (response.data.data.length === 0) this.props.setIsEmpty(true)
+                else {
+                    if(response.data.meta.total === 1) this.setState({enablePagination: false})
+                    this.props.setArticleListPagination(response.data.data, response.data.links, response.data.meta)
+                    this.props.setIsEmpty(false)
+                }
                 this.props.setLoadingState(false)
             })
             .catch(err => {
@@ -57,7 +64,8 @@ class ArticlesListContainer extends React.Component {
             <>
                 {this.props.effects.isLoading ? <Spinner/> :
                     <ArticlesList data={this.props.articleList.data} links={this.props.articleList.links}
-                                  meta={this.props.articleList.meta} isEmpty={this.props.isEmpty} isAuth={this.props.isAuth} />}
+                                  meta={this.props.articleList.meta} isEmpty={this.props.isEmpty}
+                                  isAuth={this.props.isAuth} enablePagination={this.state.enablePagination} />}
             </>
         )
     }

@@ -23,7 +23,7 @@ const ArticlesList = (props) => {
                     {props.isEmpty ? <ArticleListEmpty/> :
                         <>
                             {articles}
-                            <Pagination meta={props.meta}/>
+                            {props.enablePagination ? <Pagination meta={props.meta}/> : null}
                         </>
                     }
                 </div>

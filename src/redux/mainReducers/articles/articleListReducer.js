@@ -30,6 +30,11 @@ const articleListReducer = (state = initialState, action) => {
     }
 }
 
-export const setArticleListPaginationActionCreator = (data, links, meta) => ({type: SET_ARTICLE_LIST, data, meta, links})
+export const setArticleListPaginationActionCreator = (data, links, meta) => ({
+    type: SET_ARTICLE_LIST,
+    data,
+    meta,
+    links
+})
 export const setIsEmptyActionCreator = (isEmpty) => ({type: SET_IS_EMPTY, isEmpty})
 export default articleListReducer;
